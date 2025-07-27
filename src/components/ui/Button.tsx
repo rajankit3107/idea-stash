@@ -20,7 +20,7 @@ const SizeStyles = {
   lg: "py-2 px-10",
 };
 
-const defaultStyles = "rounded-md flex items-center cursor-pointer";
+const defaultStyles = "rounded-md flex items-center font-light cursor-pointer";
 
 export const Button = (props: ButtonProps) => {
   return (
