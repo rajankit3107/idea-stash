@@ -1,27 +1,40 @@
+import { useState } from "react";
 import "./App.css";
 import { Button } from "./components/ui/Button";
 import { Card } from "./components/ui/Card";
+import { CreateContenModal } from "./components/ui/Create-Content-Modal";
 import { PlusIcon } from "./icons/PlusIcon";
+import { ShareIcon } from "./icons/ShareIcon";
 
 function App() {
-  function handleClick() {}
+  const [modalOpen, setModalOpen] = useState(false);
   return (
     <>
-      <div>hi there</div>
-      <Button
-        text="Add Content"
-        onClick={handleClick}
-        variant="secondary"
-        size="lg"
-        startIcon={<PlusIcon size="md" />}
+      <CreateContenModal
+        open={modalOpen}
+        onClose={() => {
+          setModalOpen(false);
+        }}
       />
-      <Button
-        text="Add Content"
-        onClick={handleClick}
-        variant="primary"
-        size="lg"
-        startIcon={<PlusIcon size="md" />}
-      />
+      <div className="flex justify-end p-2">
+        <div className="pr-2">
+          <Button
+            text="Add Content"
+            onClick={() => {
+              setModalOpen(true);
+            }}
+            variant="secondary"
+            size="lg"
+            startIcon={<PlusIcon size="md" />}
+          />
+        </div>
+        <Button
+          text="Share Brain"
+          variant="primary"
+          size="lg"
+          startIcon={<ShareIcon size="md" />}
+        />
+      </div>
       <div className="flex gap-6 ml-2 mt-8 p-4">
         <Card
           type="twitter"
