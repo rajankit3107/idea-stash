@@ -10,17 +10,19 @@ export interface ButtonProps {
 }
 
 const Variants = {
-  primary: "bg-purple-600 text-white",
-  secondary: "bg-purple-100 text-purple-600",
+  primary: "bg-purple-600 text-white hover:bg-purple-700 active:bg-purple-800",
+  secondary:
+    "bg-gray-50 text-gray-700 border border-gray-200 hover:bg-gray-100 active:bg-gray-200",
 };
 
 const SizeStyles = {
-  sm: "py-1 px-4",
-  md: "py-2 px-6",
-  lg: "py-2 px-10",
+  sm: "py-2 px-4 text-sm",
+  md: "py-3 px-6 text-base",
+  lg: "py-3 px-8 text-base",
 };
 
-const defaultStyles = "rounded-md flex items-center font-light cursor-pointer";
+const defaultStyles =
+  "rounded-lg flex items-center justify-center font-medium cursor-pointer transition-colors duration-200 focus:outline-none focus:ring-1 focus:ring-purple-500";
 
 export const Button = (props: ButtonProps) => {
   return (
@@ -30,9 +32,17 @@ export const Button = (props: ButtonProps) => {
         SizeStyles[props.size]
       }`}
     >
-      {props.startIcon}
-      <div className="pl-3 pr-3">{props.text}</div>
-      {props.endIcon}
+      {props.startIcon && (
+        <div className="flex items-center justify-center mr-2">
+          {props.startIcon}
+        </div>
+      )}
+      <span>{props.text}</span>
+      {props.endIcon && (
+        <div className="flex items-center justify-center ml-2">
+          {props.endIcon}
+        </div>
+      )}
     </button>
   );
 };
