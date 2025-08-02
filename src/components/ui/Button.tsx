@@ -7,6 +7,7 @@ export interface ButtonProps {
   startIcon?: ReactElement;
   endIcon?: ReactElement;
   onClick?: () => void;
+  fullWidth?: boolean;
 }
 
 const Variants = {
@@ -30,7 +31,7 @@ export const Button = (props: ButtonProps) => {
       onClick={props.onClick}
       className={`${Variants[props.variant]} ${defaultStyles} ${
         SizeStyles[props.size]
-      }`}
+      } ${props.fullWidth ? "w-full" : ""}`}
     >
       {props.startIcon && (
         <div className="flex items-center justify-center mr-2">
