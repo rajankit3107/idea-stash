@@ -1,7 +1,28 @@
+import { useRef } from "react";
 import { Button } from "../components/ui/Button";
 import { InputBox } from "../components/ui/InputBox";
+import axios from "axios";
+import { BACKEND_URl } from "../config";
+import { useNavigate } from "react-router-dom";
 
 export function Signin() {
+  const usernameref = useRef<HTMLInputElement>();
+  const passwordRef = useRef<HTMLInputElement>();
+  const navigate = useNavigate();
+
+  async function Singin() {
+    const username = usernameref.current?.value.toString();
+    const password = passwordRef.current?.value.toString();
+
+    const respose = await axios.post(`${BACKEND_URl}/api/v1/signin`, {
+      username,
+      password,
+    });
+    const jwt = respose.data.token;
+    localStorage.setItem("token", jwt);
+    //redirect the user to the dashboard
+    navigate("/dashboard");
+  }
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 flex items-center justify-center p-6">
       <div className="w-full max-w-sm">
@@ -39,18 +60,24 @@ export function Signin() {
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Username
               </label>
-              <InputBox placeholder="username" onChange={() => {}} />
+              <InputBox placeholder="username" ref={usernameref} />
             </div>
 
             <div className="space-y-2">
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Password
               </label>
-              <InputBox placeholder="password" onChange={() => {}} />
+              <InputBox placeholder="password" ref={passwordRef} />
             </div>
 
             <div className="pt-4">
-              <Button variant="primary" text="Sign In" size="lg" fullWidth />
+              <Button
+                variant="primary"
+                text="Sign In"
+                size="lg"
+                fullWidth
+                onClick={Singin}
+              />
             </div>
           </div>
         </div>

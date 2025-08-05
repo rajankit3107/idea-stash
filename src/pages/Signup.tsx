@@ -1,7 +1,26 @@
+import { useRef } from "react";
 import { Button } from "../components/ui/Button";
 import { InputBox } from "../components/ui/InputBox";
+import { BACKEND_URl } from "../config";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export function Signup() {
+  const usernameref = useRef<HTMLInputElement>();
+  const passwordRef = useRef<HTMLInputElement>();
+  const navigate = useNavigate();
+
+  async function Signup() {
+    const username = usernameref.current?.value.toString();
+    const password = passwordRef.current?.value.toString();
+
+    await axios.post(`${BACKEND_URl}/api/v1/signup`, {
+      username,
+      password,
+    });
+    navigate("/signin");
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 flex items-center justify-center p-6">
       <div className="w-full max-w-sm">
@@ -39,14 +58,14 @@ export function Signup() {
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Username
               </label>
-              <InputBox placeholder="username" onChange={() => {}} />
+              <InputBox placeholder="username" ref={usernameref} />
             </div>
 
             <div className="space-y-2">
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Password
               </label>
-              <InputBox placeholder="password" onChange={() => {}} />
+              <InputBox placeholder="password" ref={passwordRef} />
             </div>
 
             <div className="pt-4">
@@ -55,6 +74,7 @@ export function Signup() {
                 text="Create Account"
                 size="lg"
                 fullWidth
+                onClick={Signup}
               />
             </div>
           </div>
