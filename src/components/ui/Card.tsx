@@ -1,3 +1,4 @@
+import { DeleteIcon } from "../../icons/DeleteIcon";
 import { ShareIcon } from "../../icons/ShareIcon";
 
 interface CardProp {
@@ -19,7 +20,7 @@ export function Card({ title, link, type }: CardProp) {
               {title}
             </h3>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center">
             <a
               href={link}
               target="_blank"
@@ -28,8 +29,8 @@ export function Card({ title, link, type }: CardProp) {
             >
               <ShareIcon size="md" />
             </a>
-            <button className="p-2 hover:bg-gray-50 rounded-lg transition-colors duration-200 text-gray-600">
-              <ShareIcon size="md" />
+            <button className="p-2 hover:bg-gray-50 rounded-lg transition-colors duration-200 text-gray-600 cursor-pointer">
+              <DeleteIcon size="sm" />
             </button>
           </div>
         </div>
