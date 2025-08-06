@@ -64,7 +64,14 @@ export function Dashboard() {
         </div>
         <div className="grid grid-cols-3 gap-6">
           {content.map(({ link, title, type, _id }) => (
-            <Card key={_id} type={type} link={link} title={title} />
+            <Card
+              key={_id}
+              id={_id}
+              type={type}
+              link={link}
+              title={title}
+              onDelete={refresh}
+            />
           ))}
         </div>
       </div>

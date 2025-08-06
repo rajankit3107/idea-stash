@@ -1,20 +1,44 @@
+import axios from "axios";
 import { DeleteIcon } from "../../icons/DeleteIcon";
 import { ShareIcon } from "../../icons/ShareIcon";
+import { BACKEND_URl } from "../../config";
+import { YoutubeIcon } from "../../icons/YoutubeIcon";
+import { TwitterIcon } from "../../icons/TwitterIcon";
 
 interface CardProp {
+  id: string;
   title: string;
   link: string;
   type: string;
+  onDelete?: () => void;
 }
 
-export function Card({ title, link, type }: CardProp) {
+export function Card({ id, title, link, type, onDelete }: CardProp) {
+  async function deleteContent() {
+    try {
+      await axios.delete(`${BACKEND_URl}/api/v1/delete`, {
+        data: { contentId: id },
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+
+      // Call the callback to refresh the content list
+      if (onDelete) {
+        onDelete();
+      }
+    } catch (error) {
+      console.error("Failed to delete content:", error);
+      // You could add a toast notification here
+    }
+  }
   return (
     <div className="w-80 h-96 bg-white rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 overflow-hidden">
       <div className="p-6 pb-4">
-        <div className="flex justify-between items-start mb-4">
+        <div className="flex justify-between items-center mb-4">
           <div className="flex items-center gap-3 flex-1">
-            <div className="p-2 bg-purple-50 rounded-lg text-purple-600">
-              <ShareIcon size="md" />
+            <div className="p-2 bg-purple-50 rounded-lg text-purple-600 flex items-center justify-center">
+              {type === "youtube" ? <YoutubeIcon /> : <TwitterIcon />}
             </div>
             <h3 className="font-semibold text-gray-900 text-lg leading-tight">
               {title}
@@ -25,12 +49,15 @@ export function Card({ title, link, type }: CardProp) {
               href={link}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 hover:bg-gray-50 rounded-lg transition-colors duration-200 text-gray-600"
+              className="p-2 hover:bg-gray-50 rounded-lg transition-colors duration-200 text-gray-600 flex items-center justify-center"
             >
               <ShareIcon size="md" />
             </a>
-            <button className="p-2 hover:bg-gray-50 rounded-lg transition-colors duration-200 text-gray-600 cursor-pointer">
-              <DeleteIcon size="sm" />
+            <button
+              className="p-2 hover:bg-gray-50 rounded-lg transition-colors duration-200 text-gray-600 cursor-pointer flex items-center justify-center"
+              onClick={deleteContent}
+            >
+              <DeleteIcon />
             </button>
           </div>
         </div>

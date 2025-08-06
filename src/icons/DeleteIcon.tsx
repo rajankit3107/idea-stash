@@ -1,6 +1,4 @@
-import type { IconProps } from ".";
-
-export function DeleteIcon(props: IconProps) {
+export function DeleteIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

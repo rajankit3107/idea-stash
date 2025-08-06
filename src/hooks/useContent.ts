@@ -2,8 +2,16 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { BACKEND_URl } from "../config";
 
+export interface Content {
+    _id: string;
+    title: string;
+    link: string;
+    type: string;
+    // add other fields if needed
+}
+
 export function useContent() {
-    const [content, setContent] = useState([]);
+    const [content, setContent] = useState<Content[]>([]);
 
     function refresh() {
         axios.get(`${BACKEND_URl}/api/v1/content`, {
@@ -15,16 +23,16 @@ export function useContent() {
             setContent(response.data.content)
         })
     }
-    useEffect(() => {
-      refresh();
-      let interval = setInterval(() => {
-        refresh()
-       }, 10*1000)
+    // useEffect(() => {
+    //   refresh();
+    //   let interval = setInterval(() => {
+    //     refresh()
+    //    }, 10*1000)
 
-       return () => {
-        clearInterval(interval)
-       }
-    },[])
+    //    return () => {
+    //     clearInterval(interval)
+    //    }
+    // },[])
 
     return {content, refresh}
 }
