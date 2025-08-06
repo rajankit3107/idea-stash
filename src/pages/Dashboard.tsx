@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../App.css";
 import { Button } from "../components/ui/Button";
 import { Card } from "../components/ui/Card";
-import { CreateContenModal } from "../components/ui/Create-Content-Modal";
+import { CreateContentModal } from "../components/ui/Create-Content-Modal";
 import { PlusIcon } from "../icons/PlusIcon";
 import { ShareIcon } from "../icons/ShareIcon";
 import { SideBar } from "../components/ui/Sidebar";
@@ -13,7 +13,7 @@ export function Dashboard() {
     <div>
       <SideBar />
       <div className="p-6 ml-64 min-h-screen bg-white">
-        <CreateContenModal
+        <CreateContentModal
           open={modalOpen}
           onClose={() => {
             setModalOpen(false);
