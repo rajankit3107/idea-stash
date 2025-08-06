@@ -26,19 +26,27 @@ export function CreateContentModal({ open, onClose }: CreateContentModalProps) {
     const title = titleref.current?.value;
     const link = linkref.current?.value;
 
-    await axios.post(
-      `${BACKEND_URl}/api/v1/content`,
-      {
-        link,
-        title,
-        type,
-      },
-      {
-        headers: {
-          Authorization: localStorage.getItem("token"),
+    console.log("Sending data:", { title, link, type });
+
+    try {
+      const response = await axios.post(
+        `${BACKEND_URl}/api/v1/content`,
+        {
+          link,
+          title,
+          type,
         },
-      }
-    );
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+      onClose();
+      console.log("Response:", response.data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   }
 
   return (
