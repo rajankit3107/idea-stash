@@ -7,6 +7,8 @@ import { PlusIcon } from "../icons/PlusIcon";
 import { ShareIcon } from "../icons/ShareIcon";
 import { SideBar } from "../components/ui/Sidebar";
 import { useContent } from "../hooks/useContent";
+import axios from "axios";
+import { BACKEND_URl } from "../config";
 
 export function Dashboard() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -41,6 +43,23 @@ export function Dashboard() {
             variant="primary"
             size="lg"
             startIcon={<ShareIcon size="md" />}
+            onClick={async () => {
+              const response = await axios.post(
+                `${BACKEND_URl}/api/v1/share`,
+                {
+                  share: true,
+                },
+                {
+                  headers: {
+                    Authorization: localStorage.getItem("token"),
+                  },
+                }
+              );
+
+              const shareUrl = `http://localhost:5173/${response.data.hash}`;
+              await navigator.clipboard.writeText(shareUrl);
+              console.log("Text successfully copied to clipboard!");
+            }}
           />
         </div>
         <div className="grid grid-cols-3 gap-6">
