@@ -1,1 +1,1 @@
-export const BACKEND_URl = "http://localhost:3000"
+export const BACKEND_URl = "https://brain-dump-backend-3.onrender.com";
