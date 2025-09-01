@@ -18,6 +18,7 @@ export function Signup() {
       username,
       password,
     });
+
     navigate("/signin");
   }
 

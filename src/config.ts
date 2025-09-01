@@ -1,1 +1,1 @@
-export const BACKEND_URl = "https://brain-dump-backend-6.onrender.com";
+export const BACKEND_URl = "https://idea-stash-server.onrender.com";
